@@ -161,7 +161,7 @@ class Blackjack
     while player.total < BLACKJACK_AMOUNT
       break if player.hit_or_stay == 's'
       player.add_card(deck.deal_card)
-      system 'clear'
+      clear_screen
       player.show_hand
     end
   end
@@ -175,7 +175,7 @@ class Blackjack
   end
 
   def display_table(state='')
-    system 'clear'
+    clear_screen
     dealer.show_hand(state)
     puts '-' * 10
     player.show_hand
@@ -206,6 +206,10 @@ class Blackjack
     sleep 1.5
   end
 
+  def clear_screen
+    system 'clear' or system 'cls'
+  end
+
   def ask_name
     puts 'Welcome to blackjack'
     puts "What's your name?"
@@ -223,7 +227,7 @@ class Blackjack
   def play_again
     puts 'Play again? (Y/N)'
     answer = gets.chomp.downcase
-    if !answer == 'n'
+    if answer != 'n'
       reset_game
       start
     else
